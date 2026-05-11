@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SmartWalletSA.Data;
+
 namespace SmartWalletSA
 {
     public class Program
@@ -8,6 +11,12 @@ namespace SmartWalletSA
 
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")
+                )
+            );
 
             var app = builder.Build();
 
