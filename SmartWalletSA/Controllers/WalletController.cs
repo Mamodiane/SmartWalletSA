@@ -6,6 +6,7 @@ using System.Security.Claims;
 using SmartWalletSA.DTOs;
 using SmartWalletSA.Models;
 
+
 namespace SmartWalletSA.Controllers
 {
     [ApiController]
@@ -139,6 +140,87 @@ namespace SmartWalletSA.Controllers
                 amount = request.Amount,
                 newBalance = wallet.Balance
             });
+        }
+        [HttpPost("transfer")]
+        public async Task<IActionResult> Transfer(TransferRequest request)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            int senderUserId = int.Parse(userIdClaim.Value);
+
+            var senderWallet = await _context.Wallets
+                .FirstOrDefaultAsync(w => w.UserId == senderUserId);
+
+            if (senderWallet == null)
+            {
+                return NotFound("Sender wallet not found.");
+            }
+
+            var receiver = await _context.Users
+                .Include(u => u.Wallet)
+                .FirstOrDefaultAsync(u => u.Email == request.ReceiverEmail);
+
+            if (receiver == null || receiver.Wallet == null)
+            {
+                return NotFound("Receiver wallet not found.");
+            }
+
+            if (receiver.Id == senderUserId)
+            {
+                return BadRequest("You cannot transfer money to yourself.");
+            }
+
+            if (senderWallet.Balance < request.Amount)
+            {
+                return BadRequest("Insufficient funds.");
+            }
+
+            using var dbTransaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                senderWallet.Balance -= request.Amount;
+                receiver.Wallet.Balance += request.Amount;
+
+                var senderTransaction = new Transaction
+                {
+                    WalletId = senderWallet.Id,
+                    Type = "Transfer Out",
+                    Amount = request.Amount
+                };
+
+                var receiverTransaction = new Transaction
+                {
+                    WalletId = receiver.Wallet.Id,
+                    Type = "Transfer In",
+                    Amount = request.Amount
+                };
+
+                _context.Transactions.Add(senderTransaction);
+                _context.Transactions.Add(receiverTransaction);
+
+                await _context.SaveChangesAsync();
+                await dbTransaction.CommitAsync();
+
+                return Ok(new
+                {
+                    message = "Transfer successful.",
+                    amount = request.Amount,
+                    senderWalletId = senderWallet.Id,
+                    receiverWalletId = receiver.Wallet.Id,
+                    newBalance = senderWallet.Balance
+                });
+            }
+            catch
+            {
+                await dbTransaction.RollbackAsync();
+                return StatusCode(500, "Transfer failed. No money was moved.");
+            }
         }
     }
 }
