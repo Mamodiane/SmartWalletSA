@@ -16,13 +16,22 @@ namespace SmartWalletSA
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularClient", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")
                 )
             );
 
-            // Register application services
             builder.Services.AddScoped<IWalletService, WalletService>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -55,6 +64,8 @@ namespace SmartWalletSA
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowAngularClient");
 
             app.UseAuthentication();
             app.UseAuthorization();
