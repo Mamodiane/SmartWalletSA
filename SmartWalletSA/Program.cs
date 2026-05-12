@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SmartWalletSA.Data;
+using SmartWalletSA.Services;
 using System.Text;
 
 namespace SmartWalletSA
@@ -20,6 +21,9 @@ namespace SmartWalletSA
                     builder.Configuration.GetConnectionString("DefaultConnection")
                 )
             );
+
+            // Register application services
+            builder.Services.AddScoped<IWalletService, WalletService>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
