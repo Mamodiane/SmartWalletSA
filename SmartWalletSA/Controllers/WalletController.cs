@@ -94,5 +94,51 @@ namespace SmartWalletSA.Controllers
                 newBalance = wallet.Balance
             });
         }
+        [HttpPost("withdraw")]
+        public async Task<IActionResult> Withdraw(WithdrawRequest request)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var wallet = await _context.Wallets
+                .FirstOrDefaultAsync(w => w.UserId == userId);
+
+            if (wallet == null)
+            {
+                return NotFound("Wallet not found.");
+            }
+
+            if (wallet.Balance < request.Amount)
+            {
+                return BadRequest("Insufficient funds.");
+            }
+
+            wallet.Balance -= request.Amount;
+
+            var transaction = new Transaction
+            {
+                WalletId = wallet.Id,
+                Type = "Withdraw",
+                Amount = request.Amount
+            };
+
+            _context.Transactions.Add(transaction);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Withdrawal successful.",
+                walletId = wallet.Id,
+                amount = request.Amount,
+                newBalance = wallet.Balance
+            });
+        }
     }
 }
