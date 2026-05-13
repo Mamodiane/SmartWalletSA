@@ -72,3 +72,21 @@ button:hover {
   color: #dc3545;
   font-weight: 600;
 }
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  input,
+  button {
+    width: 100%;
+  }
+
+  .balance {
+    font-size: 26px;
+  }
+}

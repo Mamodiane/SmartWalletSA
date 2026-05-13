@@ -76,3 +76,26 @@ tr:last-child td {
 p {
   color: #666;
 }
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  .filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filter-section select {
+    width: 100%;
+  }
+}
