@@ -1,15 +1,18 @@
 <div class="container mt-5">
   <h2>Smart Wallet Dashboard</h2>
 
-  <p *ngIf="errorMessage">{{ errorMessage }}</p>
-  <p *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+  <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
 
-  <div *ngIf="wallet">
+  <div class="wallet-card" *ngIf="wallet">
     <h3>Welcome, {{ wallet.user.fullName }}</h3>
 
-    <p>Email: {{ wallet.user.email }}</p>
+    <p class="user-email">Email: {{ wallet.user.email }}</p>
 
-    <h4>Balance: R{{ wallet.balance }}</h4>
+    <div class="balance-box">
+      <span>Current Balance</span>
+      <h4 class="balance">R{{ wallet.balance }}</h4>
+    </div>
 
     <hr>
 
@@ -21,6 +24,7 @@
         [(ngModel)]="depositAmount"
         name="depositAmount"
         min="1"
+        placeholder="Amount"
         required
       >
 
@@ -39,6 +43,7 @@
         [(ngModel)]="withdrawAmount"
         name="withdrawAmount"
         min="1"
+        placeholder="Amount"
         required
       >
 
@@ -65,6 +70,7 @@
         [(ngModel)]="transferAmount"
         name="transferAmount"
         min="1"
+        placeholder="Amount"
         required
       >
 

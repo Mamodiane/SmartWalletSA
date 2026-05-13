@@ -1,0 +1,74 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-bottom: 24px;
+}
+
+.wallet-card {
+  padding: 24px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.user-email {
+  color: #666;
+}
+
+.balance-box {
+  margin: 24px 0;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f4f8f6;
+}
+
+.balance-box span {
+  color: #666;
+}
+
+.balance {
+  margin-top: 8px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #198754;
+}
+
+form {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+input {
+  padding: 10px;
+  min-width: 220px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #0d6efd;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0b5ed7;
+}
+
+.success-message {
+  color: #198754;
+  font-weight: 600;
+}
+
+.error-message {
+  color: #dc3545;
+  font-weight: 600;
+}
