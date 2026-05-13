@@ -1,1 +1,76 @@
-<p>dashboard works!</p>
+<div class="container mt-5">
+  <h2>Smart Wallet Dashboard</h2>
+
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  <p *ngIf="successMessage">{{ successMessage }}</p>
+
+  <div *ngIf="wallet">
+    <h3>Welcome, {{ wallet.user.fullName }}</h3>
+
+    <p>Email: {{ wallet.user.email }}</p>
+
+    <h4>Balance: R{{ wallet.balance }}</h4>
+
+    <hr>
+
+    <h4>Deposit Money</h4>
+
+    <form (ngSubmit)="deposit()">
+      <input
+        type="number"
+        [(ngModel)]="depositAmount"
+        name="depositAmount"
+        min="1"
+        required
+      >
+
+      <button type="submit">
+        Deposit
+      </button>
+    </form>
+
+    <hr>
+
+    <h4>Withdraw Money</h4>
+
+    <form (ngSubmit)="withdraw()">
+      <input
+        type="number"
+        [(ngModel)]="withdrawAmount"
+        name="withdrawAmount"
+        min="1"
+        required
+      >
+
+      <button type="submit">
+        Withdraw
+      </button>
+    </form>
+
+    <hr>
+
+    <h4>Transfer Money</h4>
+
+    <form (ngSubmit)="transfer()">
+      <input
+        type="email"
+        [(ngModel)]="receiverEmail"
+        name="receiverEmail"
+        placeholder="Receiver email"
+        required
+      >
+
+      <input
+        type="number"
+        [(ngModel)]="transferAmount"
+        name="transferAmount"
+        min="1"
+        required
+      >
+
+      <button type="submit">
+        Transfer
+      </button>
+    </form>
+  </div>
+</div>
