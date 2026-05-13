@@ -16,7 +16,7 @@
       <tr *ngFor="let transaction of transactions">
         <td>{{ transaction.type }}</td>
         <td>R{{ transaction.amount }}</td>
-        <td>{{ transaction.createdAt }}</td>
+        <td>{{ transaction.createdAt | date:'medium' }}</td>
       </tr>
     </tbody>
   </table>
