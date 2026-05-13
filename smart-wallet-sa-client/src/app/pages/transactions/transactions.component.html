@@ -1,9 +1,43 @@
 <div class="container mt-5">
   <h2>Transaction History</h2>
 
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h4>Total Deposits</h4>
+      <p>R{{ totalDeposits }}</p>
+    </div>
+
+    <div class="summary-card">
+      <h4>Total Withdrawals</h4>
+      <p>R{{ totalWithdrawals }}</p>
+    </div>
+
+    <div class="summary-card">
+      <h4>Total Transfers</h4>
+      <p>R{{ totalTransfers }}</p>
+    </div>
+
+    <div class="summary-card">
+      <h4>Transactions</h4>
+      <p>{{ transactionCount }}</p>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <label>Filter by type:</label>
+
+    <select [(ngModel)]="selectedType">
+      <option>All</option>
+      <option>Deposit</option>
+      <option>Withdraw</option>
+      <option>Transfer In</option>
+      <option>Transfer Out</option>
+    </select>
+  </div>
+
   <p *ngIf="errorMessage">{{ errorMessage }}</p>
 
-  <table *ngIf="transactions.length > 0">
+  <table *ngIf="filteredTransactions.length > 0">
     <thead>
       <tr>
         <th>Type</th>
@@ -13,7 +47,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let transaction of transactions">
+      <tr *ngFor="let transaction of filteredTransactions">
         <td>{{ transaction.type }}</td>
         <td>R{{ transaction.amount }}</td>
         <td>{{ transaction.createdAt | date:'medium' }}</td>
@@ -21,7 +55,7 @@
     </tbody>
   </table>
 
-  <p *ngIf="transactions.length === 0 && !errorMessage">
+  <p *ngIf="filteredTransactions.length === 0 && !errorMessage">
     No transactions found.
   </p>
 </div>

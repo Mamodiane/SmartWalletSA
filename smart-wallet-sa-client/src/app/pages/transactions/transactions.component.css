@@ -7,6 +7,47 @@ h2 {
   margin-bottom: 24px;
 }
 
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  padding: 18px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.summary-card h4 {
+  margin: 0 0 8px;
+  color: #666;
+}
+
+.summary-card p {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section label {
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.filter-section select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
