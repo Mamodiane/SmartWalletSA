@@ -1,1 +1,27 @@
-<p>transactions works!</p>
+<div class="container mt-5">
+  <h2>Transaction History</h2>
+
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <table *ngIf="transactions.length > 0" border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.type }}</td>
+        <td>R{{ transaction.amount }}</td>
+        <td>{{ transaction.createdAt }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="transactions.length === 0 && !errorMessage">
+    No transactions found.
+  </p>
+</div>
