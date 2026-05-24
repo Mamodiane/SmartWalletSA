@@ -6,6 +6,30 @@ The application allows users to securely register, authenticate, manage wallets,
 
 ---
 
+---
+
+## Screenshots
+
+### Login Page
+
+![Login Page](screenshots/login.png)
+
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Transactions
+
+![Transactions](screenshots/transactions.png)
+
+### Reciever
+
+![Transactions](screenshots/reciever.png)
+
+
+---
+
 ## Features
 
 ### Authentication & Security
