@@ -12,20 +12,19 @@ The application allows users to securely register, authenticate, manage wallets,
 
 ### Login Page
 
-![Login Page](screenshots/login.png)
-
+![Login Page](screenshots/login.PNG)
 
 ### Dashboard
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard.PNG)
 
 ### Transactions
 
-![Transactions](screenshots/transactions.png)
+![Transactions](screenshots/transactions.PNG)
 
-### Reciever
+### Receiver
 
-![Transactions](screenshots/reciever.png)
+![Receiver](screenshots/receiver.PNG)
 
 
 ---
